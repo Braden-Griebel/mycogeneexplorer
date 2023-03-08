@@ -21,12 +21,14 @@ def parse_args():
     # Add argument for file path
     parser.add_argument("-f", "--f",
                         dest="path",
-                        default="../mycogeneexplorer/data/mycobrowser/Mycobacterium_tuberculosis_H37Rv_txt_v4.txt",
+                        default=os.path.join("..","mycogeneexplorer",
+                                             "data","mycobrowser",
+                                             "Mycobacterium_tuberculosis_H37Rv_txt_v4.txt"),
                         help="File with Locus tag and GO terms")
     # Add argument for out directory
     parser.add_argument("-o", "--out",
                         dest="out",
-                        default="../mycogeneexplorer/data/gene_ontology/",
+                        default=os.path.join("..","mycogeneexplorer","data","gene_ontology"),
                         help="Output directory")
     # Add argument for seperator
     parser.add_argument("-s", "--sep",

@@ -3,7 +3,14 @@ Contains functions to parse a string into a list of genes
 """
 # System imports
 import json
+import os
 import re
+
+# local imports
+import mycogeneexplorer
+
+# Get path for module to be used for finding the name dictionaries default paths
+base_path = os.path.join(mycogeneexplorer.__file__, "..")
 
 
 def parse_list(genes: str) -> list:
@@ -16,9 +23,9 @@ def parse_list(genes: str) -> list:
 
 
 def translate_list(genes: str,
-                   names_to_locus_path: str = "./data/name_dicts/names_to_locus.json",
-                   uniprot_to_locus_path: str = "./data/name_dicts/uniprot_to_locus.json",
-                   locus_list_path: str = "./data/name_dicts/locus_list.json") -> list:
+                   names_to_locus_path: str = os.path.join(base_path, "data", "name_dicts", "names_to_locus.json"),
+                   uniprot_to_locus_path: str = os.path.join(base_path, "data", "name_dicts", "uniprot_to_locus.json"),
+                   locus_list_path: str = os.path.join(base_path, "data", "name_dicts", "locus_list.json")) -> list:
     """
     Translates list of genes in Name, Locus, or UniProt form to Locus form
     :param names_to_locus_path: Path to names to locus dictionary json
@@ -45,3 +52,7 @@ def translate_list(genes: str,
         elif gene in names_to_locus:
             final_list += [names_to_locus[gene]]
     return final_list
+
+
+if __name__ == "__main__":
+    print(base_path)
