@@ -20,7 +20,7 @@ def arg_parse() -> argparse.Namespace:
     parser.add_argument("-i", "--input",
                         dest="input_file",
                         default="",
-                        help="Path to file containing the genome scale metabolic network")
+                        help="Path to file containing the genome scale metabolic model")
     # Add argument for the path to the output
     parser.add_argument("-o", "--output",
                         dest="output_file",

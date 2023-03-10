@@ -122,7 +122,7 @@ def load_cobra_model_from_file(model: Union[str, IO], file_type: str = None):
     return metabolic_model
 
 
-def find_edges_from_model(model, verbose: bool = False) -> Sequence[tuple]:
+def find_edges_from_model(model: cobra.core.model, verbose: bool = False) -> Sequence[tuple]:
     reaction_metabolite_dict = {
         "rxn": [],
         "met": []
@@ -150,7 +150,8 @@ def find_edges_from_model(model, verbose: bool = False) -> Sequence[tuple]:
         if verbose:
             bar.inc()
         for i, j in itertools.combinations(list(item["rxn"]), 2):
-            edge_list.append((i, j, {"metabolite": group}))
+            if i != j:
+                edge_list.append((i, j, {"metabolite": group}))
     if verbose:
         print("Found edges")
     return edge_list
@@ -272,18 +273,19 @@ def find_directed_edges_from_model(model: cobra.core.model,
     for (source, sink), df in edge_weight_df.groupby(["source", "sink"]):
         if verbose:
             bar.inc()
-        if len(df) == 1:
-            edge_list.append((source, sink, {"weight": df["weight"].values[0],
-                                             "metabolite": df["metabolite"].values[0]}))
-        else:
-            if reciprocal_weight:
-                min_rows = df.loc[df["weight"] == df["weight"].min()]
-                min_row = min_rows.iloc[0]
-                edge_list.append((source, sink, {"weight": min_row["weight"], "metabolite": min_row["metabolite"]}))
+        if source != sink:
+            if len(df) == 1:
+                edge_list.append((source, sink, {"weight": df["weight"].values[0],
+                                                 "metabolite": df["metabolite"].values[0]}))
             else:
-                max_rows = df.loc[df["weight"] == df["weight"].max()]
-                max_row = max_rows.iloc[0]
-                edge_list.append((source, sink, {"weight": max_row["weight"], "metabolite": max_row["metabolite"]}))
+                if reciprocal_weight:
+                    min_rows = df.loc[df["weight"] == df["weight"].min()]
+                    min_row = min_rows.iloc[0]
+                    edge_list.append((source, sink, {"weight": min_row["weight"], "metabolite": min_row["metabolite"]}))
+                else:
+                    max_rows = df.loc[df["weight"] == df["weight"].max()]
+                    max_row = max_rows.iloc[0]
+                    edge_list.append((source, sink, {"weight": max_row["weight"], "metabolite": max_row["metabolite"]}))
     if verbose:
         print("Found edges")
     return edge_list
