@@ -36,13 +36,13 @@ def main():
     # Determine format and read in model
     model = None
     if args.input_format in ["json", "JSON", "Json", ".json"]:
-        model = cobra.io.load_json_model(args.input_path)
+        model = cobra.io.load_json_model(args.input_file)
     elif args.input_format in ["sbml", "SBML", "Sbml", "xml", "XML", ".xml"]:
-        model = cobra.io.read_sbml_model(args.input_path)
+        model = cobra.io.read_sbml_model(args.input_file)
     elif args.input_format in ["yaml", "YAML", "Yaml", ".yml", ".ymal"]:
-        model = cobra.io.load_yaml_model(args.input_path)
-    elif args.input_format in ["MAT", "M", "m", ".m", ".mat"]:
-        model = cobra.io.load_matlab_model(args.input_path)
+        model = cobra.io.load_yaml_model(args.input_file)
+    elif args.input_format in ["MAT", "M", "m", ".m", ".mat", "mat"]:
+        model = cobra.io.load_matlab_model(args.input_file)
     # Determine output format, and write the translated model
     if args.output_format in ["json", "JSON", "Json", ".json"]:
         cobra.io.save_json_model(model, args.output_path)
@@ -50,7 +50,7 @@ def main():
         cobra.io.write_sbml_model(model, args.output_path)
     elif args.output_format in ["yaml", "YAML", "Yaml", ".yml", ".ymal"]:
         cobra.io.save_yaml_model(model, args.output_path)
-    elif args.output_format in ["MAT", "M", "m", ".m", ".mat"]:
+    elif args.output_format in ["MAT", "M", "m", ".m", ".mat", "mat"]:
         cobra.io.save_matlab_model(model, args.output_path)
 
 

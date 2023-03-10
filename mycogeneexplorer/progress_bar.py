@@ -8,7 +8,6 @@ class ProgressBar:
     """
     Class which creates a progress bar
     """
-
     def __init__(self, completed_symbol="\u25A0", remaining_symbol="\u25A1", total=100, divisions=None, per=10):
         """
         Create progress bar class
