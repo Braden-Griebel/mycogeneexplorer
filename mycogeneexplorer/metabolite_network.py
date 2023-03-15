@@ -13,7 +13,7 @@ import cobra
 import networkx as nx
 
 # Local imports
-from metabolic_network import load_cobra_model_from_file
+from reaction_network import load_cobra_model_from_file
 import progress_bar
 
 

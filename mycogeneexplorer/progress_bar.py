@@ -8,7 +8,12 @@ class ProgressBar:
     """
     Class which creates a progress bar
     """
-    def __init__(self, completed_symbol="\u25A0", remaining_symbol="\u25A1", total=100, divisions=None, per=10):
+
+    def __init__(self, completed_symbol="\u25A0",
+                 remaining_symbol="\u25A1",
+                 total=100,
+                 divisions=None,
+                 per=10):
         """
         Create progress bar class
         :param completed_symbol: Symbol for completed progress
@@ -27,7 +32,7 @@ class ProgressBar:
             self.per = per
             self.divisions = int(self.total / per)
 
-    def print_bar(self, progress):
+    def print_bar(self, progress) -> None:
         """
         Prints the progress bar with the current progress
         :param progress: Current progress
@@ -45,31 +50,6 @@ class ProgressBar:
         if progress == self.total:
             print("\nFinished!")
 
-    def inc(self):
+    def inc(self) -> None:
         self.progress += 1
         self.print_bar(self.progress)
-
-
-if __name__ == "__main__":
-    p_bar = ProgressBar(total=35, divisions=10)
-    p_bar.print_bar(20)
-    print("")
-    p_bar2 = ProgressBar(total=100, divisions=10)
-    for i in range(100):
-        time.sleep(0.1)
-        p_bar2.inc()
-    p_bar2.print_bar(89)
-    print("")
-    p_bar2.print_bar(99)
-    print("")
-    p_bar2.print_bar(65)
-    print("")
-    p = ProgressBar(total=54, per=3)
-    p.print_bar(50)
-    print("")
-    p.print_bar(52)
-    print("")
-    p.print_bar(54)
-    print("")
-    p.print_bar(55)
-    print("")
