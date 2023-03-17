@@ -5,7 +5,8 @@ Script to create metabolic graphs from the genome scale metabolic models
 import argparse
 
 # local imports
-import mycogeneexplorer.reaction_network as mn
+import mycogeneexplorer.network_analysis.reaction_network as mn
+import mycogeneexplorer.network_analysis.utils
 
 
 def arg_parse() -> argparse.Namespace:
@@ -69,7 +70,7 @@ def main():
     verbose = args.verbose
     if verbose:
         print("Reading model from file")
-    model = mn.load_cobra_model_from_file(model=args.input_file, file_type=args.file_type)
+    model = mycogeneexplorer.network_analysis.utils.load_cobra_model_from_file(model=args.input_file, file_type=args.file_type)
     if verbose:
         print("Creating network from model")
     if args.directed:
@@ -80,7 +81,7 @@ def main():
         metabolic_network = mn.create_reaction_network(model, verbose=verbose)
     if verbose:
         print("Network created, writing to file")
-    mn.write_network(metabolic_network, out_path=args.output_file)
+    mycogeneexplorer.network_analysis.utils.write_network(metabolic_network, out_path=args.output_file)
     if verbose:
         print("Finished")
 

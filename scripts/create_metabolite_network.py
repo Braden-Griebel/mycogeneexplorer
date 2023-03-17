@@ -6,7 +6,8 @@ Script to create a metabolite network from a genome scale metabolic model
 import argparse
 
 # Local imports
-import mycogeneexplorer.metabolite_network
+import mycogeneexplorer.network_analysis.metabolite_network
+import mycogeneexplorer.network_analysis.utils
 
 
 def arg_parse() -> argparse.Namespace:
@@ -50,14 +51,14 @@ def main():
     verbose = args.verbose
     if verbose:
         print("Reading model from file")
-    model = mycogeneexplorer.metabolite_network.load_cobra_model_from_file(model=args.input_file,
-                                                                           file_type=args.file_type)
+    model = mycogeneexplorer.network_analysis.utils.load_cobra_model_from_file(model=args.input_file,
+                                                                               file_type=args.file_type)
     if verbose:
         print("Creating network from model")
-    metabolite_network = mycogeneexplorer.metabolite_network.create_metabolite_network(model, verbose=verbose)
+    metabolite_network = mycogeneexplorer.network_analysis.metabolite_network.create_metabolite_network(model, verbose=verbose)
     if verbose:
         print("Network created, writing to file")
-    mycogeneexplorer.metabolite_network.write_network(metabolite_network, out_path=args.output_file)
+    mycogeneexplorer.network_analysis.metabolite_network.write_network(metabolite_network, out_path=args.output_file)
     if verbose:
         print("Finished")
 
